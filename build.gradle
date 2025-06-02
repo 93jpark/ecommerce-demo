@@ -1,11 +1,13 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.12'
+	id 'org.springframework.boot' version '3.1.12'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+description = "Spring Boot demo multi module application"
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 java {
 	toolchain {
@@ -23,22 +25,26 @@ repositories {
 	mavenCentral()
 }
 
-ext {
-	set('springCloudVersion', "2023.0.5")
-}
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
-dependencies {
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+	repositories {
+		mavenCentral()
+	}
 
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	dependencies {
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		implementation 'org.springframework.boot:spring-boot-starter'
+		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	}
+
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
 	}
 }
 
