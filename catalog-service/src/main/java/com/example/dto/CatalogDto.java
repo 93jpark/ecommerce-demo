@@ -2,8 +2,10 @@ package com.example.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class CatalogDto {
+public class CatalogDto implements Serializable {
     private String productId;
     private Integer qty;
     private Integer unitPrice;

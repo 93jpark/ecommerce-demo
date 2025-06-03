@@ -2,17 +2,19 @@ package com.example.jpa;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "catalogs")
+@Table(name = "catalog")
 public class CatalogEntity {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 120, unique = true)
     private String productId;
     @Column(nullable = false)
@@ -23,6 +25,7 @@ public class CatalogEntity {
     private Integer unitPrice;
 
     @Column(nullable = false, updatable = false, insertable = false)
+    @ColumnDefault(value = "CURRENT_TIMESTAMP")
     private Date createdAt;
 
 }

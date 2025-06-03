@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.dto.ResponseCatalog;
+import com.example.vo.ResponseCatalog;
 import com.example.jpa.CatalogEntity;
 import com.example.service.CatalogService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,5 @@ public class CatalogController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
-
-
 
 }

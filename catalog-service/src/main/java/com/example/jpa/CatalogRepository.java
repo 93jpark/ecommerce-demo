@@ -1,6 +1,5 @@
-package com.example.repository;
+package com.example.jpa;
 
-import com.example.jpa.CatalogEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CatalogRepository extends CrudRepository<CatalogEntity, Long> {
