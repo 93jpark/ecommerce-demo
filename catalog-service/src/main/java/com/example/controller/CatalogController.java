@@ -38,7 +38,7 @@ public class CatalogController {
             result.add(new ModelMapper().map(v, ResponseCatalog.class));
         });
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }
