@@ -18,3 +18,7 @@ spring:
           uri: lb://USER-SERVICE # eureka의 등록되어있는 이름
           predicates:
             - Path=/user-service/**
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/catalog-service/**
