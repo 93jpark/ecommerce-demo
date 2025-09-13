@@ -2,9 +2,9 @@ package com.example.service;
 
 import com.example.dto.UserDto;
 import com.example.jpa.UserEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
-
+public interface UserService extends UserDetailsService {
 
     UserDto createUser(UserDto userDto);
 

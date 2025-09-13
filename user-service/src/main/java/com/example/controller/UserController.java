@@ -36,6 +36,11 @@ public class UserController {
         return env.getProperty("greeting.message");
     }
 
+    @PostMapping("/login")
+    public String login() {
+        return "";
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<ResponseUser>> getUsers() {
         Iterable<UserEntity> userList = userService.getUserByAll();
