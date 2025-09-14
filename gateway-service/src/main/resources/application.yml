@@ -19,16 +19,24 @@ spring:
           predicates:
             - Path=/user-service/users
             - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: user-service-login
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/login
             - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            # 앞의 값을 제거해서 뒤의 값으로 바꿔줌
+            # 즉, /user-service 경로는 사라지고 뒤의 segment 값만 실제 서비스에 넘겨줌
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
-            - METHOD=GET
+            - Method=GET
 
 #        - id: catalog-service
 #          uri: lb://CATALOG-SERVICE

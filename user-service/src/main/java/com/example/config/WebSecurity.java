@@ -24,9 +24,9 @@ import org.springframework.security.web.util.matcher.IpAddressMatcher;
 @EnableWebSecurity
 public class WebSecurity {
 
-    private UserService userService;
-    private Environment environment;
-    private BCryptPasswordEncoder passwordEncoder;
+    private final UserService userService;
+//    private final Environment environment;
+    private final PasswordEncoder passwordEncoder;
 
     public static final String ALLOWED_IP_ADDRESS = "127.0.0.1";
     public static final String SUBNET = "/32";
@@ -34,7 +34,6 @@ public class WebSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder);
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
@@ -43,6 +42,7 @@ public class WebSecurity {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth ->
                         auth
+                                .requestMatchers("users").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/**").access(
                                         new WebExpressionAuthorizationManager(
@@ -56,11 +56,6 @@ public class WebSecurity {
                 .headers(e ->  // h2 console 사용을 위해 frameOptions를 disable
                         e.frameOptions(FrameOptionsConfig::disable));
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     private AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) {
